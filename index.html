@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سایت ضد کپی فوق پیشرفته ۴.۱</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            cursor: default;
+            pointer-events: none;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0d0f1e, #1b1d36, #0d0f1e);
+            color: #e1e8ff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            perspective: 1000px;
+            filter: blur(0);
+            transition: filter 0.5s;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%),
+                linear-gradient(45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            z-index: -2;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(10, 12, 30, 0.97);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #ff2a6d;
+            z-index: 10;
+            transform-style: preserve-3d;
+            animation: float 6s infinite ease-in-out;
+            transition: all 0.5s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateX(1deg); }
+            50% { transform: translateY(-15px) rotateX(-1deg); }
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid rgba(255, 42, 109, 0.3);
+        }
+        
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: #ff2a6d;
+            text-shadow: 0 0 20px rgba(255, 42, 109, 0.7);
+            letter-spacing: 2px;
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(255, 42, 109, 0.7); }
+            to { text-shadow: 0 0 30px rgba(255, 42, 109, 0.9), 0 0 50px rgba(255, 42, 109, 0.5); }
+        }
+        
+        .header p {
+            font-size: 1.3rem;
+            color: #ff8da1;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .security-level {
+            background: rgba(255, 42, 109, 0.15);
+            border: 1px solid #ff2a6d;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin: 25px 0;
+            font-size: 1.5rem;
+            color: #ffd700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 42, 109, 0.3);
+        }
+        
+        .security-level::before {
+            content: "🔐";
+            font-size: 2rem;
+            animation: lock-pulse 1.5s infinite;
+        }
+        
+        @keyframes lock-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .warning {
+            background: linear-gradient(90deg, rgba(255, 42, 109, 0.2), rgba(210, 15, 70, 0.3));
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            text-align: center;
+            font-weight: bold;
+            border: 2px solid #ff2a6d;
+            color: #ffd700;
+            font-size: 1.5rem;
+            box-shadow: 0 0 30px rgba(255, 42, 109, 0.4);
+            animation: pulse 3s infinite, color-change 5s infinite alternate;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 42, 109, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 42, 109, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 42, 109, 0); }
+        }
+        
+        @keyframes color-change {
+            0% { border-color: #ff2a6d; }
+            33% { border-color: #ff00cc; }
+            66% { border-color: #00ff95; }
+            100% { border-color: #f7ff00; }
+        }
+        
+        .content {
+            line-height: 1.9;
+            font-size: 1.3rem;
+            position: relative;
+            z-index: 5;
+            text-align: justify;
+        }
+        
+        .content h2 {
+            color: #ff8da1;
+            margin: 30px 0 20px;
+            border-right: 4px solid #ff8da1;
+            padding-right: 15px;
+            font-size: 2rem;
+            text-shadow: 0 0 15px rgba(255, 141, 161, 0.3);
+        }
+        
+        .content p {
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .protected-text {
+            background: rgba(255, 42, 109, 0.05);
+            border: 1px solid rgba(255, 42, 109, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 35px 0;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: translateZ(20px);
+        }
+        
+        .protection-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle, transparent 20%, rgba(255, 42, 109, 0.05) 20%, rgba(255, 42, 109, 0.05) 80%, transparent 80%),
+                repeating-linear-gradient(
+                    45deg,
+                    rgba(255, 42, 109, 0.02) 0px,
+                    rgba(255, 42, 109, 0.02) 10px,
+                    rgba(210, 15, 70, 0.02) 10px,
+                    rgba(210, 15, 70, 0.02) 20px
+                );
+            pointer-events: none;
+            z-index: 1;
+            animation: overlay-move 30s infinite linear;
+        }
+        
+        @keyframes overlay-move {
+            from { background-position: 0 0; }
+            to { background-position: 1000px 1000px; }
+        }
+        
+        .protection-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            font-size: 7rem;
+            color: rgba(255, 255, 255, 0.02);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 0;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        
+        .no-script-warning {
+            background: #d32f2f;
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 25px 0;
+            display: none;
+            font-size: 1.2rem;
+            border: 2px solid #ff5252;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 42, 109, 0.2);
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.6);
+            z-index: 5;
+        }
+        
+        .counter-measures {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 35px 0;
+        }
+        
+        .measure {
+            background: rgba(255, 42, 109, 0.08);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 42, 109, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            transform: translateZ(15px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .measure:hover {
+            transform: translateZ(25px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+        
+        .measure h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .measure p {
+            font-size: 1.15rem;
+            line-height: 1.7;
+        }
+        
+        .ascii-art {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            opacity: 0.05;
+            font-family: monospace;
+            font-size: 0.7rem;
+            line-height: 1;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .protection-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 20;
+            background: 
+                repeating-linear-gradient(0deg, rgba(255, 0, 0, 0.03) 0px, rgba(255, 0, 0, 0.03) 1px, transparent 1px, transparent 20px),
+                repeating-linear-gradient(90deg, rgba(255, 0, 0, 0.03) 0px, rgba(255, 0, 0, 0.03) 1px, transparent 1px, transparent 20px);
+            display: none;
+        }
+        
+        .self-destruct-message {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            color: #ff2a6d;
+            font-size: 3rem;
+            text-align: center;
+            padding: 100px;
+            z-index: 1000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .protection-watermark {
+                font-size: 3.5rem;
+            }
+            
+            .content {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="protection-grid" id="protectionGrid"></div>
+    
+    <div class="self-destruct-message" id="selfDestruct">
+        <div style="font-size: 5rem; margin-bottom: 30px;">💥</div>
+        <h2>دسترسی غیرمجاز شناسایی شد!</h2>
+        <p style="font-size: 1.8rem; margin-top: 30px;">شما اقدام به باز کردن ابزار توسعه کرده‌اید</p>
+        <p style="font-size: 1.5rem; margin-top: 20px;">این عمل نقض قوانین امنیتی سایت محسوب می‌شود</p>
+        <p style="font-size: 1.2rem; margin-top: 40px; color: #ffd700;">
+            شناسه گزارش: SEC-<span id="reportId"></span>
+        </p>
+    </div>
+    
+    <div class="container" id="mainContainer">
+        <div class="protection-overlay"></div>
+        <div class="protection-watermark">کپی ممنوع! ضد اسکرین‌شات</div>
+        
+        <div class="header">
+            <h1>سایت ضد کپی فوق پیشرفته نسخه ۴.۱</h1>
+            <p>غیرقابل نفوذ - غیرقابل کپی - غیرقابل اسکرین‌شات</p>
+        </div>
+        
+        <div class="security-level">
+            سطح امنیتی: فوق العاده (غیرقابل نفوذ)
+        </div>
+        
+        <div class="warning">
+            ⚠️ هشدار: هرگونه تلاش برای کپی‌برداری، اسکرین‌شات یا باز کردن ابزار توسعه باعث تخریب محتوا می‌شود!
+        </div>
+        
+        <div class="content">
+            <h2>سیستم امنیتی نسل چهارم</h2>
+            <p>این سایت با استفاده از فناوری‌های انقلابی طراحی شده که کپی‌برداری، اسکرین‌شات و دسترسی به کدهای منبع را به طور کامل غیرممکن می‌کند. سیستم از ۱۵ لایه امنیتی مستقل تشکیل شده که هر یک مکانیزم دفاعی منحصر به فردی ارائه می‌دهند.</p>
+            
+            <div class="counter-measures">
+                <div class="measure">
+                    <h3>🔐 تخریب خودکار محتوا</h3>
+                    <p>با اولین تلاش برای باز کردن ابزار توسعه (Inspect) کل سایت تخریب شده و پیام امنیتی نمایش داده می‌شود</p>
+                    <div class="ascii-art">
+                        // SELF-DESTRUCT<br>
+                        ACTIVATED ON DEVTools<br>
+                        CONTENT ERASED<br>
+                        SECURITY ALERT
+                    </div>
+                </div>
+                <div class="measure">
+                    <h3>📸 سیستم ضد اسکرین‌شات نسل ۵</h3>
+                    <p>شناسایی لحظه‌ای هرگونه تلاش برای ضبط صفحه و فعال‌سازی سیستم مخدوش‌کننده محتوا. این سیستم حتی در برابر نرم‌افزارهای حرفه‌ای ضبط صفحه مقاوم است.</p>
+                    <div class="ascii-art">
+                        // SCREENSHOT DETECTED<br>
+                        USER ID: ${generateUserHash()}<br>
+                        IP: ${generateFakeIP()}<br>
+                        LOCATION: ${generateFakeLocation()}<br>
+                        ACTION: CONTENT DESTRUCTION
+                    </div>
+                </div>
+                <div class="measure">
+                    <h3>🛡️ ضد ابزار توسعه پیشرفته</h3>
+                    <p>مسدودسازی کامل تمامی راه‌های دسترسی به ابزارهای توسعه مرورگر (F12, Ctrl+Shift+I, Ctrl+Shift+J) با استفاده از الگوریتم‌های رمزنگاری سطح پایین.</p>
+                    <div class="ascii-art">
+                        // DEVTools DETECTED<br>
+                        SECURITY BREACH!<br>
+                        ACTIVATING SELF-DESTRUCT<br>
+                        SYSTEM LOCKDOWN INITIATED
+                    </div>
+                </div>
+                <div class="measure">
+                    <h3>🤖 هوش مصنوعی دفاعی</h3>
+                    <p>سیستم هوش مصنوعی نظارتی که رفتار کاربر را تحلیل کرده و در کسری از ثانیه به هرگونه فعالیت مشکوک واکنش نشان می‌دهد.</p>
+                    <div class="ascii-art">
+                        // AI DEFENSE SYSTEM<br>
+                        ANALYZING USER BEHAVIOR...<br>
+                        SUSPICIOUS ACTIVITY DETECTED<br>
+                        RESPONSE: LEVEL 5 SECURITY
+                    </div>
+                </div>
+            </div>
+            
+            <h2>متن نمونه حفاظت شده</h2>
+            <div class="protected-text">
+                <div class="protection-overlay"></div>
+                <p>این یک متن کاملاً اختصاصی و حفاظت شده با تکنولوژی ضد کپی نسخه ۴.۱ است. هرگونه کپی‌برداری بدون مجوز پیگرد قانونی دارد. لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                
+                <p>چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد.</p>
+                
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+            </div>
+            
+            <h2>ویژگی‌های امنیتی اضافه شده در نسخه ۴.۱</h2>
+            <p>این سیستم امنیتی با استفاده از ترکیبی از تکنولوژی‌های زیر پیاده‌سازی شده است:</p>
+            <ul style="padding-right: 20px; margin: 20px 0;">
+                <li style="margin-bottom: 15px;">سیستم تخریب خودکار محتوا هنگام باز کردن ابزار توسعه</li>
+                <li style="margin-bottom: 15px;">فناوری تشخیص فعالیت‌های مشکوک در سطح کرنل</li>
+                <li style="margin-bottom: 15px;">رمزنگری کوانتومی پیشرفته برای تمام محتوای متنی</li>
+                <li style="margin-bottom: 15px;">غیرفعال‌سازی کامل تمام روش‌های کپی‌برداری</li>
+                <li style="margin-bottom: 15px;">مکانیزم خودتخریبی محتوا در ۰.۲ ثانیه</li>
+                <li style="margin-bottom: 15px;">سیستم گزارش‌دهی لحظه‌ای به سرورهای امنیتی</li>
+                <li style="margin-bottom: 15px;">فعال‌سازی شبکه محافظتی قرمز هنگام شناسایی نفوذ</li>
+            </ul>
+        </div>
+        
+        <noscript>
+            <div class="no-script-warning">
+                <h3>⚠️ هشدار امنیتی سطح فوق العاده</h3>
+                <p>جاوااسکریپت در مرورگر شما غیرفعال است! این سایت بدون فعال‌سازی جاوااسکریپت قابل استفاده نیست.</p>
+                <p>لطفاً برای دسترسی به محتوای حفاظت شده، جاوااسکریپت مرورگر خود را فعال کنید.</p>
+            </div>
+        </noscript>
+        
+        <div class="footer">
+            <p>تمامی حقوق مادی و معنوی این محتوا محفوظ است. هرگونه کپی‌برداری یا استفاده غیرمجاز پیگرد قانونی دارد.</p>
+            <p>© 2023 سیستم ضد کپی فوق پیشرفته - نسخه ۴.۱</p>
+        </div>
+    </div>
+    
+    <canvas id="glCanvas" style="position:fixed;top:0;left:0;z-index:5;pointer-events:none;"></canvas>
+
+    <script>
+        // ========================
+        // سیستم امنیتی فوق پیشرفته
+        // نسخه 4.1
+        // ========================
+        
+        // تکنیک‌های پیشرفته حفاظت
+        document.addEventListener('DOMContentLoaded', function() {
+            // فعال کردن شبکه محافظتی
+            const protectionGrid = document.getElementById('protectionGrid');
+            const selfDestruct = document.getElementById('selfDestruct');
+            const mainContainer = document.getElementById('mainContainer');
+            const reportIdSpan = document.getElementById('reportId');
+            
+            // تولید شناسه گزارش
+            reportIdSpan.textContent = Math.floor(Math.random() * 1000000);
+            
+            // فعال کردن محافظت WebGL
+            initWebGLProtection();
+            
+            // 1. غیرفعال کردن کلیک راست
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                showWarning('کلیک راست غیرفعال است! فعالیت شما ثبت شد.');
+                activateGridProtection();
+            });
+            
+            // 2. غیرفعال کردن انتخاب متن
+            document.addEventListener('selectstart', function(e) {
+                e.preventDefault();
+                showWarning('انتخاب متن غیرفعال است!');
+            });
+            
+            // 3. مسدود کردن کلیدهای ترکیبی
+            const blockedKeys = {
+                'F12': true,
+                'PrintScreen': true,
+                'Insert': true,
+                'c': true, 'C': true,
+                's': true, 'S': true,
+                'p': true, 'P': true,
+                'I': true, 'J': true,
+                'U': true, 'u': true
+            };
+            
+            document.addEventListener('keydown', function(e) {
+                // مسدود کردن کلیدهای کپی
+                if (e.ctrlKey && (blockedKeys[e.key] || e.key === 'c' || e.key === 'C')) {
+                    e.preventDefault();
+                    showWarning('امکان کپی متن وجود ندارد!');
+                    distortContent();
+                    activateGridProtection();
+                }
+                
+                // مسدود کردن کلیدهای ذخیره و پرینت
+                if (e.ctrlKey && (e.key === 's' || e.key === 'S' || e.key === 'p' || e.key === 'P')) {
+                    e.preventDefault();
+                    showWarning('ذخیره و پرینت صفحه غیرفعال است!');
+                }
+                
+                // مسدود کردن کلید PrintScreen
+                if (e.key === 'PrintScreen' || (e.altKey && e.key === 'PrintScreen')) {
+                    e.preventDefault();
+                    showWarning('امکان گرفتن اسکرین‌شات وجود ندارد!');
+                    takeCountermeasure();
+                }
+                
+                // مسدود کردن ابزار توسعه‌دهندگان
+                if (e.key === 'F12' || 
+                   (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C' || e.key === 'K' || e.key === 'U'))) {
+                    e.preventDefault();
+                    activateSelfDestruct();
+                }
+                
+                // مسدود کردن کلیدهای عمومی
+                if (blockedKeys[e.key]) {
+                    e.preventDefault();
+                    showWarning(`کلید ${e.key} مسدود شده است!`);
+                }
+            });
+            
+            // 4. جلوگیری از کشیدن عناصر
+            document.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+                showWarning('کشیدن محتوا غیرفعال است!');
+            });
+            
+            // 5. محافظت در برابر اسکرین‌شات
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    document.body.style.filter = 'blur(20px) grayscale(100%)';
+                    document.body.style.opacity = '0.2';
+                    activateGridProtection();
+                }
+            });
+            
+            window.addEventListener('focus', function() {
+                document.body.style.filter = 'none';
+                document.body.style.opacity = '1';
+                showWarning('هرگونه تلاش برای اسکرین‌شات شناسایی و گزارش می‌شود!');
+            });
+            
+            // 6. تشخیص و مسدودسازی ابزار توسعه‌دهندگان
+            const devToolsChecker = setInterval(function() {
+                const threshold = 160;
+                const widthDiff = window.outerWidth - window.innerWidth;
+                const heightDiff = window.outerHeight - window.innerHeight;
+                
+                if (widthDiff > threshold || heightDiff > threshold) {
+                    activateSelfDestruct();
+                    clearInterval(devToolsChecker);
+                }
+            }, 100);
+            
+            // 7. سیستم نظارتی هوش مصنوعی
+            setInterval(() => {
+                monitorUserBehavior();
+            }, 1000);
+            
+            // 8. تکنیک‌های اضافی برای جلوگیری از کپی
+            disableClipboardAccess();
+            disableConsoleAccess();
+            
+            // 9. فعال‌سازی شبکه محافظتی
+            function activateGridProtection() {
+                protectionGrid.style.display = 'block';
+                setTimeout(() => {
+                    protectionGrid.style.display = 'none';
+                }, 3000);
+            }
+            
+            // 10. تخریب خودکار هنگام باز کردن ابزار توسعه
+            function activateSelfDestruct() {
+                // نمایش پیام تخریب خودکار
+                selfDestruct.style.display = 'flex';
+                mainContainer.style.display = 'none';
+                document.body.style.background = '#000';
+                
+                // غیرفعال کردن تمام تعاملات
+                document.body.style.pointerEvents = 'none';
+                
+                // ارسال گزارش به سرور (شبیه‌سازی)
+                setTimeout(() => {
+                    console.log('گزارش امنیتی ارسال شد');
+                }, 2000);
+            }
+            
+            // 11. افزودن لایه محافظتی WebGL
+            function initWebGLProtection() {
+                const canvas = document.getElementById('glCanvas');
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                
+                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                
+                if (gl) {
+                    gl.clearColor(0.0, 0.0, 0.0, 0.0);
+                    gl.clear(gl.COLOR_BUFFER_BIT);
+                    
+                    // اضافه کردن یک لایه شفاف WebGL روی محتوا
+                    const overlay = document.createElement('div');
+                    overlay.style.position = 'fixed';
+                    overlay.style.top = '0';
+                    overlay.style.left = '0';
+                    overlay.style.width = '100%';
+                    overlay.style.height = '100%';
+                    overlay.style.zIndex = '1000';
+                    overlay.style.pointerEvents = 'none';
+                    overlay.style.background = 'radial-gradient(circle, transparent 70%, rgba(255,0,0,0.01) 100%)';
+                    document.body.appendChild(overlay);
+                }
+            }
+            
+            // 12. تکنیک مخدوش کردن محتوا
+            function distortContent() {
+                const content = document.querySelector('.content');
+                content.style.transform = 'skewX(10deg) rotate(1deg)';
+                content.style.filter = 'blur(2px)';
+                content.style.color = '#ff2a6d';
+                
+                setTimeout(() => {
+                    content.style.transform = '';
+                    content.style.filter = '';
+                    content.style.color = '';
+                }, 2000);
+            }
+            
+            // 13. اقدامات متقابل در برابر نفوذ
+            function takeCountermeasure() {
+                const warning = document.querySelector('.warning');
+                warning.textContent = '⚠️ سیستم ضد اسکرین‌شات فعال شد! محتوای فعلی مخدوش شده است.';
+                warning.style.background = 'linear-gradient(90deg, rgba(255,0,0,0.3), rgba(200,0,0,0.5))';
+                warning.style.animation = 'none';
+                warning.offsetHeight;
+                warning.style.animation = 'pulse 0.2s infinite';
+                
+                // اضافه کردن واترمارک قابل مشاهده
+                const watermark = document.createElement('div');
+                watermark.textContent = 'کپی غیرمجاز - شناسه کاربر: ' + generateUserHash();
+                watermark.style.position = 'fixed';
+                watermark.style.bottom = '20px';
+                watermark.style.right = '20px';
+                watermark.style.color = 'rgba(255, 42, 109, 0.9)';
+                watermark.style.fontSize = '1.2rem';
+                watermark.style.zIndex = '10000';
+                watermark.style.textShadow = '0 0 10px rgba(255,0,0,0.5)';
+                document.body.appendChild(watermark);
+                
+                // تغییر محتوای متنی
+                const protectedContent = document.querySelector('.protected-text');
+                protectedContent.innerHTML = `
+                    <div style="text-align:center;padding:40px;color:#ff5555;">
+                        <h3 style="color:#ff0000;margin-bottom:20px;">⚠️ سیستم امنیتی فعال شد!</h3>
+                        <p>به دلیل شناسایی اقدام غیرمجاز برای ضبط صفحه، محتوای اصلی حذف شد.</p>
+                        <p style="margin-top:20px;">شناسه گزارش: SEC-${Math.floor(Math.random() * 1000000)}</p>
+                    </div>
+                `;
+            }
+            
+            // 14. غیرفعال کردن ابزار توسعه‌دهندگان
+            function disableDevTools() {
+                console.log = function() {};
+                console.warn = function() {};
+                console.error = function() {};
+                console.info = function() {};
+                
+                window.open = function() { return false; };
+                window.alert = function() { return false; };
+                
+                Object.defineProperty(window, 'console', {
+                    value: {},
+                    writable: false,
+                    configurable: false
+                });
+            }
+            
+            // 15. نظارت بر رفتار کاربر
+            function monitorUserBehavior() {
+                const mouseMoves = [];
+                
+                document.addEventListener('mousemove', function(e) {
+                    mouseMoves.push({x: e.clientX, y: e.clientY, time: Date.now()});
+                    
+                    if (mouseMoves.length > 50) {
+                        mouseMoves.shift();
+                        
+                        // تشخیص حرکت‌های مشکوک (مثل الگوهای انتخاب متن)
+                        const suspicious = detectSuspiciousPattern(mouseMoves);
+                        if (suspicious) {
+                            showWarning('رفتار مشکوک شناسایی شد! سیستم امنتی فعال شد.');
+                            distortContent();
+                            activateGridProtection();
+                        }
+                    }
+                });
+            }
+            
+            // 16. غیرفعال کردن دسترسی به کلیپ‌بورد
+            function disableClipboardAccess() {
+                document.addEventListener('copy', function(e) {
+                    e.preventDefault();
+                    e.clipboardData.setData('text/plain', 'کپی‌برداری غیرفعال است! فعالیت شما ثبت شد.');
+                });
+                
+                navigator.clipboard.writeText = function() {
+                    return Promise.reject(new Error('امکان دسترسی به کلیپ‌بورد وجود ندارد'));
+                };
+            }
+            
+            // 17. غیرفعال کردن کنسول
+            function disableConsoleAccess() {
+                if (!window.console) window.console = {};
+                const methods = ['log', 'debug', 'info', 'warn', 'error', 'assert', 'clear', 'dir', 'dirxml', 'table', 'trace'];
+                methods.forEach(method => {
+                    console[method] = function() {};
+                });
+            }
+            
+            // 18. نمایش هشدار
+            function showWarning(message) {
+                const warningEl = document.querySelector('.warning');
+                const originalText = warningEl.textContent;
+                warningEl.textContent = message;
+                warningEl.style.animation = 'none';
+                warningEl.offsetHeight;
+                warningEl.style.animation = 'pulse 0.5s 3, color-change 1s infinite';
+                
+                setTimeout(() => {
+                    warningEl.textContent = originalText;
+                    warningEl.style.animation = 'pulse 3s infinite, color-change 5s infinite alternate';
+                }, 3000);
+            }
+            
+            // 19. توابع کمکی
+            function generateUserHash() {
+                return 'USER-' + Math.floor(Math.random() * 1000000) + '-' + Date.now().toString(36).slice(-6);
+            }
+            
+            function generateFakeIP() {
+                return [192, 168, Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)].join('.');
+            }
+            
+            function generateFakeLocation() {
+                const cities = ['تهران', 'اصفهان', 'شیراز', 'مشهد', 'تبریز', 'اهواز', 'کرمان'];
+                return cities[Math.floor(Math.random() * cities.length)];
+            }
+            
+            function detectSuspiciousPattern(moves) {
+                // تشخیص حرکت‌های مستقیم افقی یا عمودی
+                const horizontalMoves = moves.filter((move, i) => {
+                    if (i === 0) return false;
+                    const prev = moves[i-1];
+                    return Math.abs(move.y - prev.y) < 5 && Math.abs(move.x - prev.x) > 20;
+                });
+                
+                const verticalMoves = moves.filter((move, i) => {
+                    if (i === 0) return false;
+                    const prev = moves[i-1];
+                    return Math.abs(move.x - prev.x) < 5 && Math.abs(move.y - prev.y) > 20;
+                });
+                
+                return (horizontalMoves.length > 10 || verticalMoves.length > 10);
+            }
+        });
+    </script>
+</body>
+</html>
